@@ -73,7 +73,7 @@ AllowedIPs = 10.7.0.$octet/32$(grep -q 'fddd:2c4:2c4:2c4::1' /etc/wireguard/wg0.
 # END_PEER $client
 EOF
 	# Create client configuration
-	cat << EOF > $DIR/akun/wg/"$client".conf
+	cat << EOF > /root/akun/wg/"$client".conf
 [Interface]
 Address = 10.7.0.$octet/24$(grep -q 'fddd:2c4:2c4:2c4::1' /etc/wireguard/wg0.conf && echo ", fddd:2c4:2c4:2c4::$octet/64")
 DNS = $dns
@@ -99,10 +99,13 @@ echo
   echo
   echo "   -------------------------PILIHAN MENU------------------------"
   echo
-  echo "   1) Membuat Akun WG"
-  echo "   2) Hapus Akun WG"
-  echo "   3) Uninstall WG"
-  echo "   4) Exit"
+  echo "   1) Create Akun WG"
+  echo "   2) Create Akun L2TP"
+  echo "   3) Delete Akun WG"
+  echo "   4) Delete Akun L2TP"
+  echo "   5) Uninstall WG"
+  echo "   6) Uninstall L2TP" 
+  echo "   7) Exit"
 	read -p "   Pilih Satu Opsi: " option
 	until [[ "$option" =~ ^[1-4]$ ]]; do
 		echo "$option: invalid selection."
@@ -126,13 +129,18 @@ echo
 			# Append new client configuration to the WireGuard interface
 			wg addconf wg0 <(sed -n "/^# BEGIN_PEER $client/,/^# END_PEER $client/p" /etc/wireguard/wg0.conf)
 			echo
-			qrencode -t UTF8 < $DIR/akun/wg/"$client.conf"
+			qrencode -t UTF8 < /root/akun/wg/"$client.conf"
 			echo -e '\xE2\x86\x91 That is a QR code containing your client configuration.'
 			echo
-			echo "$client added. Configuration available in:" $DIR/akun/wg/"$client.conf"
+			echo "$client added. Configuration available in:" /root/akun/wg/"$client.conf"
 			exit
 		;;
 		2)
+			echo
+			/root/hijivn/ipsec/adduser.sh
+			exit
+		;;
+		3)
 			# This option could be documented a bit better and maybe even be simplified
 			# ...but what can I say, I want some sleep too
 			number_of_clients=$(grep -c '^# BEGIN_PEER' /etc/wireguard/wg0.conf)
@@ -162,7 +170,7 @@ echo
 				wg set wg0 peer "$(sed -n "/^# BEGIN_PEER $client$/,\$p" /etc/wireguard/wg0.conf | grep -m 1 PublicKey | cut -d " " -f 3)" remove
 				# Remove from the configuration file
 				sed -i "/^# BEGIN_PEER $client$/,/^# END_PEER $client$/d" /etc/wireguard/wg0.conf
-				rm -rf $DIR/akun/wg/"$client.conf"
+				rm -rf /root/akun/wg/"$client.conf"
 				echo
 				echo "$client removed!"
 			else
@@ -171,7 +179,12 @@ echo
 			fi
 			exit
 		;;
-		3)
+		4)
+			echo
+			/root/hijivn/ipsec/deluser.sh
+			exit
+		;;
+		5)
 			echo
 			read -p "Confirm WireGuard removal? [y/N]: " remove
 			until [[ "$remove" =~ ^[yYnN]*$ ]]; do

@@ -97,6 +97,33 @@ do
 	echo
 	echo "Directory $DIR/$LOGIN with client-side installation script has been created."
 
+IP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
+if [[ "$IP" = "" ]]; then
+	IP=$(wget -4qO- "http://whatismyip.akamai.com/")
+fi
+
+
+tanggal=$(date +"%Y-%m-%d")
+NEXT_DATE=$(date +%d-%m-%Y -d "$tanggal + 30 day")
+	echo
+	echo
+	echo
+
+echo "Terimakasih Telah Menggunakan Layanan HIJITOKO"
+echo "====== Informasi Akun ======"
+echo "Address         : $IP"
+echo "Ipsec/TunnelPass: hijinetwork"
+echo "Username        : $LOGIN"
+echo "Password        : $PASSWORD"
+echo "Masa Aktif      : $NEXT_DATE"
+echo "====== Informasi Akun ======"
+echo "Wajib memasukan Ipsec/PreShared key/Tunnel Password, jika tidak VPN tidak akan berjalan."
+echo "Terimakasih dan jangan lupa bintang 5 nya ya."
+	echo
+	echo
+	echo
+
+
 	
 	if [[ $# -eq 0 ]]; then
 		echo
