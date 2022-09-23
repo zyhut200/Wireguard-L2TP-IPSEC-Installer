@@ -20,12 +20,12 @@ if [[ ! -e /root/akun ]]; then
 	mkdir /root/akun/l2tp
 fi
 
-if [[ ! -e mkdir /root/akun/wg ]]; then
+if [[ ! -e /root/akun/wg ]]; then
 	mkdir /root/akun/wg
 	mkdir /root/akun/l2tp
 fi
 
-if [[ ! -e mkdir /root/akun/l2tp ]]; then
+if [[ ! -e /root/akun/l2tp ]]; then
 	mkdir /root/akun/wg
 	mkdir /root/akun/l2tp
 fi
