@@ -158,4 +158,5 @@ echo "Terimakasih dan jangan lupa bintang 5 nya ya."
 	# else
 	# 	ANSUSER=$NOTADDUSER
 	# fi
+	unset PASSWORD
 done
