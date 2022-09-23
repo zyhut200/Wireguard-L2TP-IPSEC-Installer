@@ -550,7 +550,7 @@ rm -rf installer
 chmod +x /usr/bin/wgtp
 rm -rf $DIR/installer
 #cat <(crontab -l) <(echo "* * */1 * * /usr/local/etc/wgtp/bin/autocek") | crontab -
-TMPFILE=$(mktempauto crontab.XXXXX)
+TMPFILE=$(mktemp crontab.XXXXX)
 crontab -l > $TMPFILE
 SERVERSPRESENTS=$(grep "/usr/local/etc/wgtp/bin/autocek" $TMPFILE)
 if [ $? -ne 0 ]; then
