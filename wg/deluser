@@ -1,0 +1,24 @@
+#!/bin/bash
+#
+# https://github.com/Nyr/wireguard-install
+#
+# Copyright (c) 2020 Nyr. Released under the MIT License.
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
+
+if [[ $# -gt 0 ]]; then
+    client="$1"
+fi
+
+while [[ -z "$client" ]];
+do
+    read -p "Enter name: " client
+done
+
+sed -i "/^# BEGIN_PEER $client/,/^# END_PEER $client$/d" /etc/wireguard/wg0.conf
+rm -rf /root/akun/wg/"$client.conf"
+
+
+echo
+echo "$client removed!"
+	

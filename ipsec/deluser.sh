@@ -19,5 +19,6 @@ done
 
 sed -i "/^# BEGIN_PEER $LOGIN/,/^# END_PEER $LOGIN$/d" $CHAPSECRETS
 rm -rf $DIR/ipsec/akun/"$LOGIN"
+rm -rf /root/akun/l2tp/"$client.txt"
 
-echo "$CHAPSECRETS updated!"
+echo "$LOGIN deleted!"
