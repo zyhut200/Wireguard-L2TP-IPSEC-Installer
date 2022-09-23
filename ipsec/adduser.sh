@@ -150,12 +150,12 @@ echo "Terimakasih dan jangan lupa bintang 5 nya ya."
 
 
 	
-	if [[ $# -eq 0 ]]; then
-		echo
-		read -p "Would you want to add another user? [no] " ANSUSER
-		: ${ANSUSER:=$NOTADDUSER}
-		unset LOGIN
-	else
-		ANSUSER=$NOTADDUSER
-	fi
+	# if [[ $# -eq 0 ]]; then
+	# 	echo
+	# 	read -p "Would you want to add another user? [no] " ANSUSER
+	# 	: ${ANSUSER:=$NOTADDUSER}
+	# 	unset LOGIN
+	# else
+	# 	ANSUSER=$NOTADDUSER
+	# fi
 done
