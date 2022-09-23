@@ -3,7 +3,6 @@
 # https://github.com/Nyr/wireguard-install
 #
 # Copyright (c) 2020 Nyr. Released under the MIT License.
-DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 
 # Discard stdin. Needed when running from an one-liner which includes a newline
@@ -107,12 +106,12 @@ echo
 	case "$option" in
 		1)
 			echo
-			/root/hijivn/wg/adduser
+			/usr/local/etc/wgtp/wg/adduser
 			exit
 		;;
 		2)
 			echo
-			/root/hijivn/ipsec/adduser.sh
+			/usr/local/etc/wgtp/ipsec/adduser.sh
 			exit
 		;;
 		3)
@@ -155,7 +154,7 @@ echo
 			exit
 		;;
 		4)
-			source $DIR/ipsec/env.sh
+			source /usr/local/etc/wgtp/ipsec/env.sh
 			number_of_clients=$(grep -c '^# BEGIN_PEER' $CHAPSECRETS)
 			if [[ "$number_of_clients" = 0 ]]; then
 				echo
@@ -181,7 +180,7 @@ echo
 				# The following is the right way to avoid disrupting other active connections:
 				# Remove from the configuration file
 				sed -i "/^# BEGIN_PEER $client/,/^# END_PEER $client$/d" $CHAPSECRETS
-				rm -rf $DIR/ipsec/akun/"$client"
+				rm -rf /usr/local/etc/wgtp/ipsec/akun/"$client"
 				rm -rf /root/akun/l2tp/"$client.txt"
 				echo
 				echo "$client removed!"
