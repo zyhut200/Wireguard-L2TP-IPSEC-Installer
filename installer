@@ -535,11 +535,11 @@ EOF
 	echo "New clients can be added by running this script again."
 else
 echo "wg sudah ada"
-	esac
 fi
 
 
 git clone https://github.com/rickicode/Wireguard-L2TP-IPSEC-Installer.git
+rm -rf /usr/local/etc/wgtp
 mv Wireguard-L2TP-IPSEC-Installer /usr/local/etc/wgtp
 cd /usr/local/etc/wgtp
 mv -f wgtp /usr/bin/
