@@ -2,10 +2,10 @@
 Installer Wireguard dan L2TP dengan tambahan auto expired User.
 
 # OS Didukung
-Debian 9
-Debian 10
-Ubuntu 18
-Ubuntu 20 (Rekomendasi)
+* Debian 9
+* Debian 10
+* Ubuntu 18
+* Ubuntu 20 (Rekomendasi)
 
 # FITUR
 - Wireguard
