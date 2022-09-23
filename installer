@@ -1,8 +1,14 @@
-#!/usr/bin/env bash
+#!/bin/bash
+#
+# https://github.com/rickicode/Wireguard-L2TP-IPSEC-Installer
+
+git clone https://github.com/rickicode/Wireguard-L2TP-IPSEC-Installer.git
+rm -rf /usr/local/etc/wgtp
+mv Wireguard-L2TP-IPSEC-Installer /usr/local/etc/wgtp
 
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 if [[ ! -e /etc/xl2tpd/xl2tpd.conf ]]; then
-	$DIR/ipsec/install.sh
+	/usr/local/etc/wgtp/ipsec/install.sh
 else 
 	echo "L2TP sudah di install"
 fi
@@ -534,13 +540,10 @@ EOF
 	echo "The client configuration is available in:" /root/akun/wg/"$client.conf"
 	echo "New clients can be added by running this script again."
 else
-echo "wg sudah ada"
+echo "wg sudah di Install"
 fi
 
 
-git clone https://github.com/rickicode/Wireguard-L2TP-IPSEC-Installer.git
-rm -rf /usr/local/etc/wgtp
-mv Wireguard-L2TP-IPSEC-Installer /usr/local/etc/wgtp
 cd /usr/local/etc/wgtp
 mv -f /usr/local/etc/wgtp/bin/wgtp /usr/bin/wgtp
 rm -rf installer
