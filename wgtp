@@ -87,8 +87,7 @@ TUN needs to be enabled before running this installer."
 fi
 
 echo
-  echo "Selamat datang di VPN HIJINETWORK"
-  echo
+  echo "Selamat datang di WGTP HIJINETWORK"
   echo "   -------------------------PILIHAN MENU------------------------"
   echo
   echo "   1) Create Akun WG"
