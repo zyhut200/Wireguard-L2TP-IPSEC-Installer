@@ -17,6 +17,7 @@ done
 
 sed -i "/^# BEGIN_PEER $client/,/^# END_PEER $client$/d" /etc/wireguard/wg0.conf
 rm -rf /root/akun/wg/"$client.conf"
+rm -rf /root/akun/wg/"$client.txt"
 
 
 echo
