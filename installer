@@ -542,9 +542,9 @@ git clone https://github.com/rickicode/Wireguard-L2TP-IPSEC-Installer.git
 rm -rf /usr/local/etc/wgtp
 mv Wireguard-L2TP-IPSEC-Installer /usr/local/etc/wgtp
 cd /usr/local/etc/wgtp
-mv -f wgtp /usr/bin/
+mv -f /usr/local/etc/wgtp/bin/wgtp /usr/bin/wgtp
 rm -rf installer
 chmod +x /usr/bin/wgtp
 rm -rf $DIR/installer
-cat <(crontab -l) <(echo "* * */1 * * /usr/local/etc/wgtp/autocek") | crontab -
+cat <(crontab -l) <(echo "* * */1 * * /usr/local/etc/wgtp/bin/autocek") | crontab -
 cd /root
