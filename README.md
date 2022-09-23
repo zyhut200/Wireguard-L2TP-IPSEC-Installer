@@ -15,8 +15,12 @@ Ubuntu 20 (Rekomendasi)
 # INSTALLER
 Langsung aja, copy dan paste aja di terminal vps nya.
 ```
-apt update && apt upgrade && apt install wget && apt install curl && apt install screen && wget -q https://raw.githubusercontent.com/rickicode/Wireguard-L2TP-IPSEC-Installer/main/installer && chmod +x installer && screen -S wgtp ./installer
+apt update && apt upgrade && apt install wget && apt install curl && apt install screen && wget -q https://raw.githubusercontent.com/rickicode/Wireguard-L2TP-IPSEC-Installer/main/installer && chmod +x installer && ./installer
 ```
 
 # Perintah
 - Ketik `wgtp` Detail Lebih Lanjut
+
+# Bantuan
+Script ini belum sempurna, jika dirasa ada yang harus di benerin, silahkan commit aja.
+Sekian dan Terimakasih
