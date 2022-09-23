@@ -549,5 +549,15 @@ mv -f /usr/local/etc/wgtp/bin/wgtp /usr/bin/wgtp
 rm -rf installer
 chmod +x /usr/bin/wgtp
 rm -rf $DIR/installer
-cat <(crontab -l) <(echo "* * */1 * * /usr/local/etc/wgtp/bin/autocek") | crontab -
+#cat <(crontab -l) <(echo "* * */1 * * /usr/local/etc/wgtp/bin/autocek") | crontab -
+TMPFILE=$(mktempauto crontab.XXXXX)
+crontab -l > $TMPFILE
+SERVERSPRESENTS=$(grep "/usr/local/etc/wgtp/bin/autocek" $TMPFILE)
+if [ $? -ne 0 ]; then
+	echo "* * */1 * * /usr/local/etc/wgtp/bin/autocek >/dev/null 2>&1" >> $TMPFILE
+fi
+crontab $TMPFILE > /dev/null
+rm $TMPFILE
+
+
 cd /root

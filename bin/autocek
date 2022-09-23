@@ -26,6 +26,6 @@ do
 	#echo $datenow $exp $user
 	if [[ "$datenow" == "$exp2" ]]; then
 		/usr/local/etc/wgtp/ipsec/deluser.sh $user
-		#echo $user "dihapus"
+		echo $user "dihapus"
 	fi
 done

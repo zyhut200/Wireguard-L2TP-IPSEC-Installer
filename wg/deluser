@@ -1,8 +1,8 @@
 #!/bin/bash
 #
-# https://github.com/Nyr/wireguard-install
+# 
 #
-# Copyright (c) 2020 Nyr. Released under the MIT License.
+# Copyright (c) 2022 rickicode. Released under the MIT License.
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 

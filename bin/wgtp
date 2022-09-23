@@ -2,7 +2,7 @@
 #
 # https://github.com/rickicode/Wireguard-L2TP-IPSEC-Installer
 #
-# Copyright (c) 2020 Nyr. Released under the MIT License.
+# Copyright (c) 2022 rickicode. Released under the MIT License.
 
 
 # Discard stdin. Needed when running from an one-liner which includes a newline
