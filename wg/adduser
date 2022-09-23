@@ -136,12 +136,18 @@ if [[ -z "$cekuser" ]]; then
 		done
 		new_client_setup
 		# Append new client configuration to the WireGuard interface
-		wg addconf wg0 <(sed -n "/^# BEGIN_PEER $client/,/^# END_PEER $client/p" /etc/wireguard/wg0.conf)
+		wg addconf wg0 <(sed -n "/^# BEGIN_PEER $client EXP $EXPIRED/,/^# END_PEER $client/p" /etc/wireguard/wg0.conf)
 		echo
 		qrencode -t UTF8 < /root/akun/wg/"$client.conf"
 		echo -e '\xE2\x86\x91 That is a QR code containing your client configuration.'
 		echo
+
 		echo "$client added. Configuration available in:" /root/akun/wg/"$client.conf"
+				
+	echo
+	echo
+	cat "/root/akun/wg/$client.txt"
+		
 		exit
 	else
 	echo "Akun sudah ada!"

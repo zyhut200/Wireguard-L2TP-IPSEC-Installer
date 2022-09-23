@@ -10,27 +10,21 @@ userwg=$(grep '^# BEGIN_PEER' /etc/wireguard/wg0.conf | cut -d ' ' -f 3)
 expwg=$(grep '^# BEGIN_PEER' /etc/wireguard/wg0.conf | cut -d ' ' -f 5)
 
 
-
-	#if [[ "$user" ]]; then
-	#/root/hijivn/ipsec/deluser.sh $user
-	#fi
-
-for user in $userl2tp
+for user in $userwg
 do
-	exp=$(grep "^# BEGIN_PEER $user" /etc/ppp/chap-secrets | cut -d ' ' -f 5)
-	#echo $datenow $exp $user
-	if [[ "$datenow" == "$exp" ]]; then
-		/root/hijivn/ipsec/deluser.sh $user
-		#echo $user "dihapus"
+	exp1=$(grep "^# BEGIN_PEER $user " /etc/wireguard/wg0.conf | cut -d ' ' -f 5)
+	#echo $user " == " $exp1 
+	if [[ "$datenow" == "$exp1" ]]; then
+		/root/hijivn/wg/deluser $user
+		echo $user "dihapus"
 	fi
 done
 
-
-for user in $userwg
+for user in $userl2tp
 do
-	exp=$(grep "^# BEGIN_PEER $user" /etc/ppp/chap-secrets | cut -d ' ' -f 5)
+	exp2=$(grep "^# BEGIN_PEER $user " /etc/ppp/chap-secrets | cut -d ' ' -f 5)
 	#echo $datenow $exp $user
-	if [[ "$datenow" == "$exp" ]]; then
+	if [[ "$datenow" == "$exp2" ]]; then
 		/root/hijivn/ipsec/deluser.sh $user
 		#echo $user "dihapus"
 	fi
