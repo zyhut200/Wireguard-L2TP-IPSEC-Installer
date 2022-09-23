@@ -15,7 +15,7 @@ do
 	exp1=$(grep "^# BEGIN_PEER $user " /etc/wireguard/wg0.conf | cut -d ' ' -f 5)
 	#echo $user " == " $exp1 
 	if [[ "$datenow" == "$exp1" ]]; then
-		/root/hijivn/wg/deluser $user
+		/usr/local/etc/wgtp/wg/deluser $user
 		echo $user "dihapus"
 	fi
 done
@@ -25,7 +25,7 @@ do
 	exp2=$(grep "^# BEGIN_PEER $user " /etc/ppp/chap-secrets | cut -d ' ' -f 5)
 	#echo $datenow $exp $user
 	if [[ "$datenow" == "$exp2" ]]; then
-		/root/hijivn/ipsec/deluser.sh $user
+		/usr/local/etc/wgtp/ipsec/deluser.sh $user
 		#echo $user "dihapus"
 	fi
 done
