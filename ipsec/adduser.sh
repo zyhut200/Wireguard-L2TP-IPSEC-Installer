@@ -11,6 +11,8 @@ fi
 NOTADDUSER="no"
 ANSUSER="yes"
 
+tanggal=$(date +"%Y-%m-%d")
+
 while [ "$ANSUSER" != "$NOTADDUSER" ]; 
 do
 
@@ -20,18 +22,28 @@ do
 
 	while [[ -z "$LOGIN" ]];
 	do
-	    read -p "Enter name: " LOGIN
+	    read -p "Username: " LOGIN
 	done
 
 	unset PASSWORD
 
 	while [[ -z "$PASSWORD" ]];
 	do
-	    read -p "Enter password: " PASSWORD
-	    echo
+	    read -p "Password: " PASSWORD
 	done
 
+	read -p 'Expired (days) : ' EXPIRED
+	while [[ ! $EXPIRED =~ ^-?[0-9]+$ ]]; do 
+		echo "Woy Salah!"
+		read -p 'Enter Expired Day : ' EXPIRED
+	done
+	
 	DELETED=0
+	EXP=$(date +%d-%m-%Y -d "$tanggal + $EXPIRED day")
+
+echo $EXP
+echo $EXPIRED
+exit
 
 	$DIR/checkuser.sh $LOGIN
 
@@ -57,7 +69,9 @@ do
 		fi
 	fi
 
+	echo -e "# BEGIN_PEER $LOGIN $tanggal" >> $CHAPSECRETS
 	echo -e "$LOGIN\t    *\t    $PASSWORD\t    *" >> $CHAPSECRETS
+
 
 	if [ $DELETED -eq 0 ]; then
 		echo "$CHAPSECRETS has been updated!"
@@ -103,8 +117,7 @@ if [[ "$IP" = "" ]]; then
 fi
 
 
-tanggal=$(date +"%Y-%m-%d")
-NEXT_DATE=$(date +%d-%m-%Y -d "$tanggal + 30 day")
+
 	echo
 	echo
 	echo
@@ -115,7 +128,7 @@ echo "Address         : $IP"
 echo "Ipsec/TunnelPass: hijinetwork"
 echo "Username        : $LOGIN"
 echo "Password        : $PASSWORD"
-echo "Masa Aktif      : $NEXT_DATE"
+echo "Masa Aktif      : $EXP"
 echo "====== Informasi Akun ======"
 echo "Wajib memasukan Ipsec/PreShared key/Tunnel Password, jika tidak VPN tidak akan berjalan."
 echo "Terimakasih dan jangan lupa bintang 5 nya ya."
