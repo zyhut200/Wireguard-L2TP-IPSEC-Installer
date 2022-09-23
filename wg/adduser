@@ -150,6 +150,6 @@ if [[ -z "$cekuser" ]]; then
 		
 		exit
 	else
-	echo "Akun sudah ada!"
+	echo "Akun $client Sudah ada!"
 	exit
 fi

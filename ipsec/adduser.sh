@@ -13,8 +13,7 @@ ANSUSER="yes"
 
 datenow=$(date +"%Y-%m-%d")
 
-while [ "$ANSUSER" != "$NOTADDUSER" ]; 
-do
+
 
 	if [[ $# -gt 0 ]]; then
 	    LOGIN="$1"
@@ -42,29 +41,35 @@ do
 	EXP=$(date +%d-%m-%Y -d "$datenow + $EXPIRED day")
 
 
-	$DIR/checkuser.sh $LOGIN
+	#$DIR/checkuser.sh $LOGIN
 
-	if [[ $? -eq 0 ]]; then
-		NOTREM="no"
-		read -p "User '$LOGIN' already exists. Do you want to remove existing user? [no] " ANSREM
-		: ${ANSREM:=$NOTREM}
+cekuser=$(grep -P "^$LOGIN\s+" $CHAPSECRETS)
+if [[ ! -z "$cekuser" ]]; then
+echo "Akun $LOGIN Sudah ada."
+exit
+fi
 
-		if [ "$NOTREM" == "$ANSREM" ]; then
-			unset LOGIN PASSWORD
-			if [[ $# -gt 0 ]]; then
-				# exit, if script is called with params
-				ANSUSER=$NOTADDUSER
-			else
-				read -p "Would you want to add another user? [no] " ANSUSER
-				: ${ANSUSER:=$NOTADDUSER}
-				unset LOGIN
-			fi
-			continue
-		else
-			$DIR/deluser.sh $LOGIN
-			DELETED=1
-		fi
-	fi
+	# if [[ $? -eq 0 ]]; then
+	# 	NOTREM="no"
+	# 	read -p "User '$LOGIN' already exists. Do you want to remove existing user? [no] " ANSREM
+	# 	: ${ANSREM:=$NOTREM}
+
+	# 	if [ "$NOTREM" == "$ANSREM" ]; then
+	# 		unset LOGIN PASSWORD
+	# 		if [[ $# -gt 0 ]]; then
+	# 			# exit, if script is called with params
+	# 			ANSUSER=$NOTADDUSER
+	# 		else
+	# 			read -p "Would you want to add another user? [no] " ANSUSER
+	# 			: ${ANSUSER:=$NOTADDUSER}
+	# 			unset LOGIN
+	# 		fi
+	# 		continue
+	# 	else
+	# 		$DIR/deluser.sh $LOGIN
+	# 		DELETED=1
+	# 	fi
+	# fi
 
 	echo -e "# BEGIN_PEER $LOGIN EXP $EXP" >> $CHAPSECRETS
 	echo -e "$LOGIN\t    *\t    $PASSWORD\t    *" >> $CHAPSECRETS
@@ -148,7 +153,7 @@ echo "Terimakasih dan jangan lupa bintang 5 nya ya."
 	echo
 	echo
 
-
+exit
 	
 	# if [[ $# -eq 0 ]]; then
 	# 	echo
@@ -158,5 +163,3 @@ echo "Terimakasih dan jangan lupa bintang 5 nya ya."
 	# else
 	# 	ANSUSER=$NOTADDUSER
 	# fi
-	unset PASSWORD
-done
