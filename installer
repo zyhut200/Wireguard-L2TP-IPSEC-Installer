@@ -540,7 +540,7 @@ EOF
 	echo "The client configuration is available in:" /root/akun/wg/"$client.conf"
 	echo "New clients can be added by running this script again."
 else
-echo "wg sudah di Install"
+echo "Wireguard Sudah di Install"
 fi
 
 
