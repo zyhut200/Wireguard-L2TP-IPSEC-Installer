@@ -17,6 +17,7 @@ do
     read -p "Enter name: " LOGIN
 done
 
-sed -i -e "/^$LOGIN[[:space:]]/d" $CHAPSECRETS
+sed -i "/^# BEGIN_PEER $LOGIN/,/^# END_PEER $LOGIN$/d" $CHAPSECRETS
+rm -rf $DIR/ipsec/akun/"$LOGIN"
 
 echo "$CHAPSECRETS updated!"

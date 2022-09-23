@@ -1,0 +1,6 @@
+#CEK USER
+
+datenow=$(date +"%d-%m-%Y")
+
+expl2tp=$(grep '^# BEGIN_PEER' /etc/ppp/chap-secrets | cut -d ' ' -f 4)
+

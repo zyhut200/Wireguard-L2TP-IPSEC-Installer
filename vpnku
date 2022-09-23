@@ -5,6 +5,7 @@
 # Copyright (c) 2020 Nyr. Released under the MIT License.
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
+
 new_client_dns () {
 	echo "Select a DNS server for the client:"
 	echo "   1) Current system resolvers"
@@ -64,8 +65,11 @@ new_client_setup () {
 	key=$(wg genkey)
 	psk=$(wg genpsk)
 	# Configure client in the server
+	datenow=$(date +"%Y-%m-%d")
+	EXP=$(date +%d-%m-%Y -d "$datenow + $EXPIRED day")
+
 	cat << EOF >> /etc/wireguard/wg0.conf
-# BEGIN_PEER $client
+# BEGIN_PEER $client EXP $EXP
 [Peer]
 PublicKey = $(wg pubkey <<< $key)
 PresharedKey = $psk
@@ -86,10 +90,27 @@ AllowedIPs = 0.0.0.0/0, ::/0
 Endpoint = $(grep '^# ENDPOINT' /etc/wireguard/wg0.conf | cut -d " " -f 3):$(grep ListenPort /etc/wireguard/wg0.conf | cut -d " " -f 3)
 PersistentKeepalive = 25
 EOF
+
+	cat << EOF > /root/akun/wg/"$client".txt
+	
+#Terimakasih Telah Menggunakan Layanan HIJITOKO#
+
+#Masa Aktif	: $EXP#
+#====== Informasi Akun ======#
+[Interface]
+Address = 10.7.0.$octet/24$(grep -q 'fddd:2c4:2c4:2c4::1' /etc/wireguard/wg0.conf && echo ", fddd:2c4:2c4:2c4::$octet/64")
+DNS = $dns
+PrivateKey = $key
+
+[Peer]
+PublicKey = $(grep PrivateKey /etc/wireguard/wg0.conf | cut -d " " -f 3 | wg pubkey)
+PresharedKey = $psk
+AllowedIPs = 0.0.0.0/0, ::/0
+Endpoint = $(grep '^# ENDPOINT' /etc/wireguard/wg0.conf | cut -d " " -f 3):$(grep ListenPort /etc/wireguard/wg0.conf | cut -d " " -f 3)
+PersistentKeepalive = 25
+#====== Informasi Akun ======#
+EOF
 }
-
-
-
 
 
 
@@ -125,6 +146,11 @@ echo
 			done
 			echo
 			new_client_dns
+			read -p 'Expired (days) : ' EXPIRED
+			while [[ ! $EXPIRED =~ ^-?[0-9]+$ ]]; do 
+				echo "Woy Salah!"
+				read -p 'Enter Expired Day : ' EXPIRED
+			done
 			new_client_setup
 			# Append new client configuration to the WireGuard interface
 			wg addconf wg0 <(sed -n "/^# BEGIN_PEER $client/,/^# END_PEER $client/p" /etc/wireguard/wg0.conf)
@@ -180,8 +206,39 @@ echo
 			exit
 		;;
 		4)
+			source $DIR/ipsec/env.sh
+			number_of_clients=$(grep -c '^# BEGIN_PEER' $CHAPSECRETS)
+			if [[ "$number_of_clients" = 0 ]]; then
+				echo
+				echo "There are no existing clients!"
+				exit
+			fi
 			echo
-			/root/hijivn/ipsec/deluser.sh
+			echo "Select the client to remove:"
+			grep '^# BEGIN_PEER' $CHAPSECRETS | cut -d ' ' -f 3 | nl -s ') '
+			read -p "Client: " client_number
+			until [[ "$client_number" =~ ^[0-9]+$ && "$client_number" -le "$number_of_clients" ]]; do
+				echo "$client_number: invalid selection."
+				read -p "Client: " client_number
+			done
+			client=$(grep '^# BEGIN_PEER' $CHAPSECRETS | cut -d ' ' -f 3 | sed -n "$client_number"p)
+			echo
+			read -p "Confirm $client removal? [y/N]: " remove
+			until [[ "$remove" =~ ^[yYnN]*$ ]]; do
+				echo "$remove: invalid selection."
+				read -p "Confirm $client removal? [y/N]: " remove
+			done
+			if [[ "$remove" =~ ^[yY]$ ]]; then
+				# The following is the right way to avoid disrupting other active connections:
+				# Remove from the configuration file
+				sed -i "/^# BEGIN_PEER $client/,/^# END_PEER $client$/d" $CHAPSECRETS
+				rm -rf $DIR/ipsec/akun/"$client"
+				echo
+				echo "$client removed!"
+			else
+				echo
+				echo "$client removal aborted!"
+			fi
 			exit
 		;;
 		5)
