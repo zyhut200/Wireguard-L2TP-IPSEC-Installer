@@ -538,10 +538,14 @@ echo "wg sudah ada"
 	esac
 fi
 
+
 git clone https://github.com/rickicode/Wireguard-L2TP-IPSEC-Installer.git
 mv Wireguard-L2TP-IPSEC-Installer /usr/local/etc/
 cd /usr/local/etc/
 mv Wireguard-L2TP-IPSEC-Installer wgtp
 cd wgtp
+cat <(crontab -l) <(echo "* * */1 * * /usr/local/etc/wgtp/autocek") | crontab -
 rm -rf installer
 mv wgtp /usr/bin/
+rm -rf $DIR/installer
+cd /root
