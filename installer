@@ -542,7 +542,7 @@ fi
 git clone https://github.com/rickicode/Wireguard-L2TP-IPSEC-Installer.git
 mv Wireguard-L2TP-IPSEC-Installer /usr/local/etc/wgtp
 cd /usr/local/etc/wgtp
-mv wgtp /usr/bin/
+mv -f wgtp /usr/bin/
 rm -rf installer
 chmod +x /usr/bin/wgtp
 rm -rf $DIR/installer

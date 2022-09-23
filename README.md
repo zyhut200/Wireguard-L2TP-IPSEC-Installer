@@ -18,3 +18,5 @@ Langsung aja, copy dan paste aja di terminal vps nya.
 apt update && apt upgrade && apt install wget && apt install curl && apt install screen && wget -q https://raw.githubusercontent.com/rickicode/Wireguard-L2TP-IPSEC-Installer/main/installer && chmod +x installer && screen -S wgtp ./installer
 ```
 
+# Perintah
+- Ketik `wgtp` Detail Lebih Lanjut
