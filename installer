@@ -20,6 +20,16 @@ if [[ ! -e /root/akun ]]; then
 	mkdir /root/akun/l2tp
 fi
 
+if [[ ! -e mkdir /root/akun/wg ]]; then
+	mkdir /root/akun/wg
+	mkdir /root/akun/l2tp
+fi
+
+if [[ ! -e mkdir /root/akun/l2tp ]]; then
+	mkdir /root/akun/wg
+	mkdir /root/akun/l2tp
+fi
+
 # Detect Debian users running the script with "sh" instead of bash
 if readlink /proc/$$/exe | grep -q "dash"; then
 	echo 'This installer needs to be run with "bash", not "sh".'
