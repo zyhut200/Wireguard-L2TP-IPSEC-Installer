@@ -138,7 +138,7 @@ EOF
 	echo
 	echo
 	echo
-
+clear
 echo "Terimakasih Telah Menggunakan Layanan HIJITOKO"
 echo "====== Informasi Akun ======"
 echo "Address		: $IP"
