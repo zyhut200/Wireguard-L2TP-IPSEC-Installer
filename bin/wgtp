@@ -293,6 +293,7 @@ echo
 			exit
 		;;
 		6)
+		/usr/local/etc/wgtp/ipsec/uninstall/uninstall.sh
 			exit
 		;;
 	esac
