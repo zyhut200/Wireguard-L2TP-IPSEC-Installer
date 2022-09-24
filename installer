@@ -555,6 +555,7 @@ fi
 
 
 cd /usr/local/etc/wgtp
+rm -rf /usr/bin/wgtp
 mv -f /usr/local/etc/wgtp/bin/wgtp /usr/bin/wgtp
 rm -rf installer
 chmod +x /usr/bin/wgtp
