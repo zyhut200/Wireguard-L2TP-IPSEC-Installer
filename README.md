@@ -20,7 +20,8 @@ wget -q https://raw.githubusercontent.com/rickicode/Wireguard-L2TP-IPSEC-Install
 
 # Perintah
 - Ketik `wgtp` Detail Lebih Lanjut
-- Screenshoot
+- 
+
 ![Screenshoot](https://github.com/rickicode/Wireguard-L2TP-IPSEC-Installer/blob/main/img/Screenshot_1.png?raw=true)
 
 # Bantuan
