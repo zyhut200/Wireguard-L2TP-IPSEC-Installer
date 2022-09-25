@@ -11,11 +11,8 @@ fi
 DEFAULTDNS1="8.8.8.8"
 DEFAULTDNS2="8.8.4.4"
 
-read -p "Preffered DNS resolver #1: " -e -i $DEFAULTDNS1 DNS1
-: ${DNS1:=$DEFAULTDNS1}
-
-read -p "Preffered DNS resolver #2: " -e -i $DEFAULTDNS2 DNS2
-: ${DNS2:=$DEFAULTDNS2}
+DNS1:=8.8.8.8
+DNS2:=8.8.4.4
 
 sed -i -e "/ms-dns/d" $PPPCONFIG
 
