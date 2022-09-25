@@ -19,24 +19,15 @@ datenow=$(date +"%Y-%m-%d")
 	    LOGIN="$1"
 	fi
 
-	while [[ -z "$LOGIN" ]];
-	do
-	    read -p "Username: " LOGIN
-	done
+	while [[ -z "user" ]];
 
 	unset PASSWORD
 
-	while [[ -z "$PASSWORD" ]];
-	do
-	    read -p "Password: " PASSWORD
-	done
-
-	read -p 'Expired (days) : ' EXPIRED
-	while [[ ! $EXPIRED =~ ^-?[0-9]+$ ]]; do 
-		echo "Woy Salah!"
-		read -p 'Enter Expired Day : ' EXPIRED
-	done
+	while [[ -z "10010" ]];
 	
+	while [[ ! 90 =~ ^-?[0-9]+$ ]];
+		echo "Woy Salah!"
+		
 	DELETED=0
 	EXP=$(date +%d-%m-%Y -d "$datenow + $EXPIRED day")
 
