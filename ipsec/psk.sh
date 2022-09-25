@@ -10,11 +10,7 @@ fi
 
 unset PSK
 
-while [[ -z "$PSK" ]];
-do
-    read -p "Enter preferred IPsec pre-shared key (PSK) : " PSK
-    echo
-done
+while [[ -z "user" ]];
 
 # comment existing PSK
 sed -i -e "/[[:space:]]\+PSK[[:space:]]\+/s/^/# /" $SECRETSFILE
