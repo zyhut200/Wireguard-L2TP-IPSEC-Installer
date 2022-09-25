@@ -12,10 +12,7 @@ if [[ $# -gt 0 ]]; then
     LOGIN="$1"
 fi
 
-while [[ -z "$LOGIN" ]];
-do
-    read -p "Enter name: " LOGIN
-done
+while [[ -z "user" ]];
 
 RET=$(grep -P "^$LOGIN\s+" $CHAPSECRETS)
 
